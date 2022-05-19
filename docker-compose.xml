@@ -1,0 +1,8 @@
+version: '2'
+services:
+	product-server:
+		container_name: GCPTest
+		build:
+			context:
+			dockerfile: Dockerfile
+		image: GCPTest:lastest
