@@ -60,13 +60,17 @@ public class DemoApplication {
 	      String payload,
 	      @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
 		  logger.info("Message arrived via an inbound channel adapter from sub-one! Payload: " + payload);
+		  message.ack();
 		  
 		  try {
 			MessageSub msg = new ObjectMapper().readValue(payload, MessageSub.class);
 			
 			StorageClientAdapter.downloadObject("first-142020", "first-142020.appspot.com", msg.body, "/"+msg.body);
+			logger.info("Download File: "+msg.body);
 			
 			StorageClientAdapter.uploadObject("first-142020", "output-files2", msg.body, "/"+msg.body);
+			
+			logger.info("Upload File: "+msg.body);
 			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -75,9 +79,7 @@ public class DemoApplication {
 			e.printStackTrace();
 		}
 		  
-		  
-		  
-	    message.ack();
+	    
 	  }
 
 }
