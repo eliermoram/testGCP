@@ -64,9 +64,9 @@ public class DemoApplication {
 		  try {
 			MessageSub msg = new ObjectMapper().readValue(payload, MessageSub.class);
 			
-			StorageClientAdapter.downloadObject("first-142020", "first-142020.appspot.com", msg.body, "/nuevo88.txt");
+			StorageClientAdapter.downloadObject("first-142020", "first-142020.appspot.com", msg.body, "/"+msg.body);
 			
-			StorageClientAdapter.uploadObject("first-142020", "output-files2", "nuevo88.txt", "/nuevo88.txt");
+			StorageClientAdapter.uploadObject("first-142020", "output-files2", msg.body, "/"+msg.body);
 			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
